@@ -19,14 +19,6 @@
     "lint": "eslint src/*.ts",
     "prettify": "prettier src/*.ts --write"
   },
-  "author": "Joe Attardi <jattardi@gmail.com> (https://joeattardi.codes)",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/joeattardi/emoji-button.git"
-  },
-  "homepage": "https://emoji-button.js.org",
-  "bugs": "https://github.com/joeattardi/emoji-button/issues",
-  "license": "MIT",
   "devDependencies": {
     "@babel/core": "^7.10.2",
     "@babel/preset-env": "^7.10.2",
