@@ -83,6 +83,13 @@ export class Search {
       this.emojiData = [...this.emojiData, ...customEmojis];
     }
 
+    if (this.options.getTitle) {
+      for (let i = 0, len_i = this.emojiData.length; i < len_i; i++) {
+          let emoji = this.emojiData[i];
+          emoji.title = this.options.getTitle(emoji);
+      }
+    }
+
     this.events.on(HIDE_VARIANT_POPUP, () => {
       setTimeout(() => this.setFocusedEmoji(this.focusedEmojiIndex));
     });
@@ -226,7 +233,7 @@ export class Search {
         .go(this.searchField.value, this.emojiData, {
           allowTypo: true,
           limit: 100,
-          key: 'name'
+          key: 'title'
         })
         .map(result => result.obj);
 

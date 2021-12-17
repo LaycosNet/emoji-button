@@ -47,7 +47,7 @@ export class Emoji {
     if (this.emoji.custom) {
       this.emojiButton.dataset.custom = 'true';
     }
-    this.emojiButton.title = this.emoji.name;
+    this.emojiButton.title = this.emoji.title || this.emoji.name;
 
     this.emojiButton.addEventListener('focus', () => this.onEmojiHover());
     this.emojiButton.addEventListener('blur', () => this.onEmojiLeave());

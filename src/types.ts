@@ -3,6 +3,7 @@ import { ParseObject } from 'twemoji';
 import { EmojiButton } from './index';
 
 export interface EmojiRecord {
+  title: any;
   name: string;
   emoji: string;
   custom?: boolean;
@@ -43,6 +44,7 @@ export interface Plugin {
 }
 
 export interface EmojiButtonOptions {
+  getTitle(emoji: EmojiRecord): string;
   position?: Placement | FixedPosition;
   autoHide?: boolean;
   autoFocusSearch?: boolean;
