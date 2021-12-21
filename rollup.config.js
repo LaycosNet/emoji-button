@@ -9,11 +9,19 @@ const production = process.env.NODE_ENV === 'production';
 
 export default {
   input: 'src/index.ts',
-  output: {
-    file: 'dist/index.js',
-    format: 'es',
-    name: 'EmojiButton'
-  },
+  output: [
+    {
+      file: 'dist/index.js',
+      format: 'es',
+      name: 'EmojiButton'
+    },
+    {
+      file: 'dist/index.min.js',
+      format: 'es',
+      name: 'EmojiButton',
+      plugins: [terser()]
+    }
+  ],
   watch: {
     buildDelay: 500
   },
@@ -28,7 +36,7 @@ export default {
     }),
     typescript(),
     resolve(),
-    commonjs(),
-    production && terser()
+    commonjs()
+    // production && terser()
   ]
 };
