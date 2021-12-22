@@ -4508,7 +4508,7 @@ class Search {
         this.searchIcon.addEventListener('click', (event) => this.onClearSearch(event));
         this.searchContainer.appendChild(this.searchIcon);
         this.searchField.addEventListener('keydown', (event) => this.onKeyDown(event));
-        this.searchField.addEventListener('keyup', event => this.onKeyUp(event));
+        this.searchField.addEventListener('keyup', (event) => this.onKeyUp(event));
         return this.searchContainer;
     }
     clear() {
@@ -4572,13 +4572,13 @@ class Search {
         }
     }
     onKeyDown(event) {
-        this.events.emit(KEYDOWN);
+        this.events.emit(KEYDOWN, event);
         if (event.key === 'Escape' && this.searchField.value) {
             this.onClearSearch(event);
         }
     }
     onKeyUp(event) {
-        this.events.emit(KEYUP);
+        this.events.emit(KEYUP, event);
         if (event.key === 'Tab' || event.key === 'Shift') {
             return;
         }
@@ -5117,6 +5117,20 @@ class EmojiButton {
         this.emojiArea.reset();
     }
     /**
+     * Emit a keyup event on the search field.
+     * @param e
+     */
+    emitKeyUp(e) {
+        this.publicEvents.emit(KEYUP, e);
+    }
+    /**
+     * Emit a keydown event on the search field.
+     * @param e
+     */
+    emitKeyDown(e) {
+        this.publicEvents.emit(KEYDOWN, e);
+    }
+    /**
      * Emits a selected emoji event.
      * @param param0 The selected emoji and show variants flag
      */
@@ -5245,6 +5259,8 @@ class EmojiButton {
         this.events.on(SHOW_SEARCH_RESULTS, this.showSearchResults.bind(this));
         this.events.on(HIDE_SEARCH_RESULTS, this.hideSearchResults.bind(this));
         this.events.on(EMOJI, this.emitEmoji.bind(this));
+        this.events.on(KEYUP, this.emitKeyUp.bind(this));
+        this.events.on(KEYDOWN, this.emitKeyDown.bind(this));
         this.buildPreview();
         this.wrapper = createElement('div', CLASS_WRAPPER);
         this.wrapper.appendChild(this.pickerEl);

@@ -48,6 +48,16 @@ export declare class EmojiButton {
      */
     private hideSearchResults;
     /**
+     * Emit a keyup event on the search field.
+     * @param e
+     */
+    private emitKeyUp;
+    /**
+     * Emit a keydown event on the search field.
+     * @param e
+     */
+    private emitKeyDown;
+    /**
      * Emits a selected emoji event.
      * @param param0 The selected emoji and show variants flag
      */
