@@ -2407,6 +2407,8 @@ const HIDE_PREVIEW = 'hidePreview';
 const HIDE_VARIANT_POPUP = 'hideVariantPopup';
 const CATEGORY_CLICKED = 'categoryClicked';
 const PICKER_HIDDEN = 'hidden';
+const KEYDOWN = 'keyDown';
+const KEYUP = 'keyUp';
 
 /*!
  * escape-html
@@ -4570,11 +4572,13 @@ class Search {
         }
     }
     onKeyDown(event) {
+        this.events.emit(KEYDOWN);
         if (event.key === 'Escape' && this.searchField.value) {
             this.onClearSearch(event);
         }
     }
     onKeyUp(event) {
+        this.events.emit(KEYUP);
         if (event.key === 'Tab' || event.key === 'Shift') {
             return;
         }

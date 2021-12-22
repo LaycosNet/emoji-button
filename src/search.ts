@@ -8,7 +8,9 @@ import {
   HIDE_PREVIEW,
   HIDE_VARIANT_POPUP,
   SHOW_SEARCH_RESULTS,
-  HIDE_SEARCH_RESULTS
+  HIDE_SEARCH_RESULTS,
+  KEYDOWN,
+  KEYUP
 } from './events';
 import { createElement, empty } from './util';
 import { I18NStrings, EmojiButtonOptions, EmojiRecord } from './types';
@@ -198,12 +200,14 @@ export class Search {
   }
 
   onKeyDown(event: KeyboardEvent): void {
+    this.events.emit(KEYDOWN);
     if (event.key === 'Escape' && this.searchField.value) {
       this.onClearSearch(event);
     }
   }
 
   onKeyUp(event: KeyboardEvent): void {
+    this.events.emit(KEYUP);
     if (event.key === 'Tab' || event.key === 'Shift') {
       return;
     } else if (!this.searchField.value) {

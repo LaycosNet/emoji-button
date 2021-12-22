@@ -6,3 +6,5 @@ export declare const HIDE_PREVIEW = "hidePreview";
 export declare const HIDE_VARIANT_POPUP = "hideVariantPopup";
 export declare const CATEGORY_CLICKED = "categoryClicked";
 export declare const PICKER_HIDDEN = "hidden";
+export declare const KEYDOWN = "keyDown";
+export declare const KEYUP = "keyUp";
