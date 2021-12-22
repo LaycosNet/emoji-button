@@ -87,8 +87,8 @@ export class Search {
 
     if (this.options.getTitle) {
       for (let i = 0, len_i = this.emojiData.length; i < len_i; i++) {
-          let emoji = this.emojiData[i];
-          emoji.title = this.options.getTitle(emoji);
+        let emoji = this.emojiData[i];
+        emoji.title = this.options.getTitle(emoji);
       }
     }
 
@@ -124,7 +124,9 @@ export class Search {
     this.searchField.addEventListener('keydown', (event: KeyboardEvent) =>
       this.onKeyDown(event)
     );
-    this.searchField.addEventListener('keyup', event => this.onKeyUp(event));
+    this.searchField.addEventListener('keyup', (event: KeyboardEvent) =>
+      this.onKeyUp(event)
+    );
 
     return this.searchContainer;
   }
@@ -200,14 +202,16 @@ export class Search {
   }
 
   onKeyDown(event: KeyboardEvent): void {
-    this.events.emit(KEYDOWN);
+    this.events.emit(KEYDOWN, event);
+
     if (event.key === 'Escape' && this.searchField.value) {
       this.onClearSearch(event);
     }
   }
 
   onKeyUp(event: KeyboardEvent): void {
-    this.events.emit(KEYUP);
+    this.events.emit(KEYUP, event);
+
     if (event.key === 'Tab' || event.key === 'Shift') {
       return;
     } else if (!this.searchField.value) {

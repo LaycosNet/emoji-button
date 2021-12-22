@@ -12,7 +12,9 @@ import {
   SHOW_SEARCH_RESULTS,
   HIDE_SEARCH_RESULTS,
   HIDE_VARIANT_POPUP,
-  PICKER_HIDDEN
+  PICKER_HIDDEN,
+  KEYDOWN,
+  KEYUP
 } from './events';
 import { lazyLoadEmoji } from './lazyLoad';
 import { EmojiPreview } from './preview';
@@ -218,6 +220,22 @@ export class EmojiButton {
   }
 
   /**
+   * Emit a keyup event on the search field.
+   * @param e
+   */
+  private emitKeyUp(e: KeyboardEvent): void {
+    this.publicEvents.emit(KEYUP, e);
+  }
+
+  /**
+   * Emit a keydown event on the search field.
+   * @param e
+   */
+  private emitKeyDown(e: KeyboardEvent): void {
+    this.publicEvents.emit(KEYDOWN, e);
+  }
+
+  /**
    * Emits a selected emoji event.
    * @param param0 The selected emoji and show variants flag
    */
@@ -390,6 +408,8 @@ export class EmojiButton {
     this.events.on(SHOW_SEARCH_RESULTS, this.showSearchResults.bind(this));
     this.events.on(HIDE_SEARCH_RESULTS, this.hideSearchResults.bind(this));
     this.events.on(EMOJI, this.emitEmoji.bind(this));
+    this.events.on(KEYUP, this.emitKeyUp.bind(this));
+    this.events.on(KEYDOWN, this.emitKeyDown.bind(this));
 
     this.buildPreview();
 
