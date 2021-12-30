@@ -4964,7 +4964,7 @@ class EmojiArea {
         }
         this.emojis = createElement('div', CLASS_EMOJIS);
         if (this.options.showRecents) {
-            this.emojiCategories.recents = load();
+            this.emojiCategories.recents = load(this.options);
         }
         if (this.options.custom) {
             this.emojiCategories.custom = this.options.custom.map(custom => (Object.assign(Object.assign({}, custom), { custom: true })));
