@@ -3749,7 +3749,7 @@ const LOCAL_STORAGE_KEY = 'emojiPicker.recent';
 function load(options) {
     let recents;
     if (options === null || options === void 0 ? void 0 : options.fetchRecents) {
-        options.fetchRecents() || [];
+        recents = options.fetchRecents() || [];
     }
     else {
         const recentJson = localStorage.getItem(LOCAL_STORAGE_KEY);
