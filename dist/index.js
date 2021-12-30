@@ -3747,8 +3747,8 @@ function createIcon(src) {
 
 const LOCAL_STORAGE_KEY = 'emojiPicker.recent';
 function load(options) {
-    if (options === null || options === void 0 ? void 0 : options.fetchRecent) {
-        return options.fetchRecent();
+    if (options === null || options === void 0 ? void 0 : options.fetchRecents) {
+        return options.fetchRecents();
     }
     const recentJson = localStorage.getItem(LOCAL_STORAGE_KEY);
     const recents = recentJson ? JSON.parse(recentJson) : [];
