@@ -5,7 +5,7 @@ const LOCAL_STORAGE_KEY = 'emojiPicker.recent';
 export function load(options?: EmojiButtonOptions): Array<RecentEmoji> {
   let recents;
   if (options?.fetchRecents) {
-    return options.fetchRecents() || [];
+    options.fetchRecents() || [];
   }
   else {
     const recentJson = localStorage.getItem(LOCAL_STORAGE_KEY);
