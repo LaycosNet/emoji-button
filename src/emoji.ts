@@ -70,7 +70,12 @@ export class Emoji {
         !this.options.showVariants) &&
       this.options.showRecents
     ) {
-      save(this.emoji, this.options);
+      if (this.options.saveRecentEmojis) {
+        this.options.saveRecentEmojis(this.emoji, this.options);
+      }
+      else {
+        save(this.emoji, this.options);
+      }
     }
 
     this.events.emit(EMOJI, {

@@ -3757,7 +3757,8 @@ function save(emoji, options) {
         emoji: emoji.emoji,
         name: emoji.name,
         key: emoji.key || emoji.name,
-        custom: emoji.custom
+        custom: emoji.custom,
+        timestamp: Date.now()
     };
     localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify([
         recent,
@@ -3810,7 +3811,12 @@ class Emoji {
             !this.showVariants ||
             !this.options.showVariants) &&
             this.options.showRecents) {
-            save(this.emoji, this.options);
+            if (this.options.saveRecentEmojis) {
+                this.options.saveRecentEmojis(this.emoji, this.options);
+            }
+            else {
+                save(this.emoji, this.options);
+            }
         }
         this.events.emit(EMOJI, {
             emoji: this.emoji,
@@ -4936,7 +4942,7 @@ class EmojiArea {
     }
     updateRecents() {
         if (this.options.showRecents) {
-            this.emojiCategories.recents = load();
+            this.emojiCategories.recents = this.options.getRecentEmojis ? this.options.getRecentEmojis() : load();
             const recentsContainer = this.emojis.querySelector(`.${CLASS_EMOJI_CONTAINER}`);
             if (recentsContainer && recentsContainer.parentNode) {
                 recentsContainer.parentNode.replaceChild(new EmojiContainer(this.emojiCategories.recents, true, this.events, this.options, false).render(), recentsContainer);

@@ -79,7 +79,7 @@ export class EmojiArea {
 
   updateRecents(): void {
     if (this.options.showRecents) {
-      this.emojiCategories.recents = load();
+      this.emojiCategories.recents = this.options.getRecentEmojis ? this.options.getRecentEmojis() : load();      
       const recentsContainer = this.emojis.querySelector(
         `.${CLASS_EMOJI_CONTAINER}`
       ) as HTMLElement;

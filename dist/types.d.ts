@@ -26,6 +26,7 @@ export interface RecentEmoji {
     name: string;
     emoji: string;
     custom?: boolean;
+    timestamp?: number;
 }
 export interface EmojiEventData {
     emoji: EmojiRecord;
@@ -38,6 +39,8 @@ export interface Plugin {
 }
 export interface EmojiButtonOptions {
     getTitle?(emoji: EmojiRecord): string;
+    getRecentEmojis(): RecentEmoji[];
+    saveRecentEmojis?(emoji: EmojiRecord | RecentEmoji, options: EmojiButtonOptions): void;
     position?: Placement | FixedPosition;
     autoHide?: boolean;
     autoFocusSearch?: boolean;

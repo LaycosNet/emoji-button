@@ -18,7 +18,8 @@ export function save(
     emoji: emoji.emoji,
     name: emoji.name,
     key: (emoji as RecentEmoji).key || emoji.name,
-    custom: emoji.custom
+    custom: emoji.custom,
+    timestamp: Date.now()
   };
 
   localStorage.setItem(
