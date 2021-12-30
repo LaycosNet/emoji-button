@@ -39,8 +39,8 @@ export interface Plugin {
 }
 export interface EmojiButtonOptions {
     getTitle?(emoji: EmojiRecord): string;
-    getRecentEmojis(): RecentEmoji[];
-    saveRecentEmojis?(emoji: EmojiRecord | RecentEmoji, options: EmojiButtonOptions): void;
+    fetchRecent(): RecentEmoji[];
+    saveRecent?(emoji: EmojiRecord | RecentEmoji, options: EmojiButtonOptions): void;
     position?: Placement | FixedPosition;
     autoHide?: boolean;
     autoFocusSearch?: boolean;

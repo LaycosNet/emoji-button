@@ -3746,13 +3746,16 @@ function createIcon(src) {
 }
 
 const LOCAL_STORAGE_KEY = 'emojiPicker.recent';
-function load() {
+function load(options) {
+    if (options === null || options === void 0 ? void 0 : options.fetchRecent) {
+        return options.fetchRecent();
+    }
     const recentJson = localStorage.getItem(LOCAL_STORAGE_KEY);
     const recents = recentJson ? JSON.parse(recentJson) : [];
     return recents.filter(recent => !!recent.emoji);
 }
 function save(emoji, options) {
-    const recents = load();
+    const recents = load(options);
     const recent = {
         emoji: emoji.emoji,
         name: emoji.name,
@@ -3760,6 +3763,10 @@ function save(emoji, options) {
         custom: emoji.custom,
         timestamp: Date.now()
     };
+    if (options.saveRecent) {
+        options.saveRecent(recent, options);
+        return;
+    }
     localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify([
         recent,
         ...recents.filter((r) => !!r.emoji && r.key !== recent.key)
@@ -3811,8 +3818,8 @@ class Emoji {
             !this.showVariants ||
             !this.options.showVariants) &&
             this.options.showRecents) {
-            if (this.options.saveRecentEmojis) {
-                this.options.saveRecentEmojis(this.emoji, this.options);
+            if (this.options.saveRecent) {
+                this.options.saveRecent(this.emoji, this.options);
             }
             else {
                 save(this.emoji, this.options);
@@ -4942,7 +4949,7 @@ class EmojiArea {
     }
     updateRecents() {
         if (this.options.showRecents) {
-            this.emojiCategories.recents = this.options.getRecentEmojis ? this.options.getRecentEmojis() : load();
+            this.emojiCategories.recents = load(this.options);
             const recentsContainer = this.emojis.querySelector(`.${CLASS_EMOJI_CONTAINER}`);
             if (recentsContainer && recentsContainer.parentNode) {
                 recentsContainer.parentNode.replaceChild(new EmojiContainer(this.emojiCategories.recents, true, this.events, this.options, false).render(), recentsContainer);
