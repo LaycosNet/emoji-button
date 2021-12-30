@@ -3818,12 +3818,7 @@ class Emoji {
             !this.showVariants ||
             !this.options.showVariants) &&
             this.options.showRecents) {
-            if (this.options.saveRecent) {
-                this.options.saveRecent(this.emoji, this.options);
-            }
-            else {
-                save(this.emoji, this.options);
-            }
+            save(this.emoji, this.options);
         }
         this.events.emit(EMOJI, {
             emoji: this.emoji,
@@ -4964,7 +4959,7 @@ class EmojiArea {
         }
         this.emojis = createElement('div', CLASS_EMOJIS);
         if (this.options.showRecents) {
-            this.emojiCategories.recents = load(this.options);
+            this.emojiCategories.recents = load();
         }
         if (this.options.custom) {
             this.emojiCategories.custom = this.options.custom.map(custom => (Object.assign(Object.assign({}, custom), { custom: true })));
