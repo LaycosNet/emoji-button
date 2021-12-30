@@ -3747,11 +3747,14 @@ function createIcon(src) {
 
 const LOCAL_STORAGE_KEY = 'emojiPicker.recent';
 function load(options) {
+    let recents;
     if (options === null || options === void 0 ? void 0 : options.fetchRecents) {
-        return options.fetchRecents();
+        return options.fetchRecents() || [];
     }
-    const recentJson = localStorage.getItem(LOCAL_STORAGE_KEY);
-    const recents = recentJson ? JSON.parse(recentJson) : [];
+    else {
+        const recentJson = localStorage.getItem(LOCAL_STORAGE_KEY);
+        recents = recentJson ? JSON.parse(recentJson) : [];
+    }
     return recents.filter(recent => !!recent.emoji);
 }
 function save(emoji, options) {
