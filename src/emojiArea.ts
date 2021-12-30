@@ -113,7 +113,7 @@ export class EmojiArea {
     this.emojis = createElement('div', CLASS_EMOJIS);
 
     if (this.options.showRecents) {
-      this.emojiCategories.recents = load();
+      this.emojiCategories.recents = load(this.options);
     }
 
     if (this.options.custom) {
