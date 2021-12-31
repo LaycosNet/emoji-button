@@ -48,7 +48,7 @@ const MOBILE_BREAKPOINT = 450;
 
 const STYLE_TWEMOJI = 'twemoji';
 
-const emojiDataByEmoji = emojiData.reduce(
+const emojiDataByEmoji = emojiData.emoji.reduce(
   (acc, emoji) => ({ ...acc, [emoji.emoji]: emoji }),
   {}
 );

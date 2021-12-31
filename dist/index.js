@@ -5190,7 +5190,7 @@ class EmojiArea {
 
 const MOBILE_BREAKPOINT = 450;
 const STYLE_TWEMOJI = 'twemoji';
-const emojiDataByEmoji = emojiData.reduce((acc, emoji) => (Object.assign(Object.assign({}, acc), { [emoji.emoji]: emoji })), {});
+const emojiDataByEmoji = emojiData.emoji.reduce((acc, emoji) => (Object.assign(Object.assign({}, acc), { [emoji.emoji]: emoji })), {});
 const DEFAULT_OPTIONS = {
     position: 'auto',
     autoHide: true,
