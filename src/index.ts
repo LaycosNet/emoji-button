@@ -48,6 +48,11 @@ const MOBILE_BREAKPOINT = 450;
 
 const STYLE_TWEMOJI = 'twemoji';
 
+const emojiDataByEmoji = emojiData.reduce(
+  (acc, emoji) => ({ ...acc, [emoji.emoji]: emoji }),
+  {}
+);
+
 const DEFAULT_OPTIONS: EmojiButtonOptions = {
   position: 'auto',
   autoHide: true,
@@ -758,4 +763,8 @@ export class EmojiButton {
       this.pickerEl.classList.add(theme);
     }
   }
+}
+
+export function findEmojiRecordForEmoji(emoji: string): EmojiRecord {
+  return emojiDataByEmoji[emoji] || null;
 }

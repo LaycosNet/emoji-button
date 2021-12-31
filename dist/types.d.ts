@@ -39,7 +39,7 @@ export interface Plugin {
 }
 export interface EmojiButtonOptions {
     getTitle?(emoji: EmojiRecord): string;
-    fetchRecents(): RecentEmoji[];
+    fetchRecents?(): RecentEmoji[];
     saveRecent?(emoji: EmojiRecord | RecentEmoji, options: EmojiButtonOptions): void;
     position?: Placement | FixedPosition;
     autoHide?: boolean;

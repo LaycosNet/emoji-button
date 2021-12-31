@@ -1,6 +1,7 @@
 {
   "name": "@joeattardi/emoji-button",
   "version": "4.6.2",
+  "originalVersion": "4.6.2",
   "description": "Vanilla JavaScript emoji picker",
   "keywords": [
     "emoji",
@@ -11,8 +12,7 @@
   "types": "dist/index.d.ts",
   "scripts": {
     "build": "cross-env NODE_ENV=production rollup -c",
-    "build:watch": "rollup -cw",
-    "start": "npm run build:watch",
+    "watch": "rollup -cw",
     "prepublishOnly": "cross-env NODE_ENV=production rollup -c",
     "test": "jest src/**.test.ts",
     "test:watch": "jest --watchAll",

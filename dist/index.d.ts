@@ -1,5 +1,5 @@
 import '../css/emoji-button.css';
-import { EmojiButtonOptions, EmojiTheme } from './types';
+import { EmojiButtonOptions, EmojiRecord, EmojiTheme } from './types';
 export declare class EmojiButton {
     private pickerVisible;
     private hideInProgress;
@@ -195,3 +195,4 @@ export declare class EmojiButton {
      */
     setTheme(theme: EmojiTheme): void;
 }
+export declare function findEmojiRecordForEmoji(emoji: string): EmojiRecord;
