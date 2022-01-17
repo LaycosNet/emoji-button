@@ -64,6 +64,7 @@ const DEFAULT_OPTIONS: EmojiButtonOptions = {
   showVariants: true,
   showCategoryButtons: true,
   recentsCount: 50,
+  updateRecentsOnHide: true,
   emojiData,
   emojiVersion: '12.1',
   theme: 'light',
@@ -258,7 +259,9 @@ export class EmojiButton {
     ) {
       this.showVariantPopup(emoji as EmojiRecord);
     } else {
-      setTimeout(() => this.emojiArea.updateRecents());
+      if (!this.options.updateRecentsOnHide) {
+        setTimeout(() => this.emojiArea.updateRecents());
+      }
 
       let eventData: EmojiSelection;
       if (emoji.custom) {
@@ -591,6 +594,10 @@ export class EmojiButton {
         this.popper && this.popper.destroy();
 
         this.publicEvents.emit(PICKER_HIDDEN);
+
+        if (this.options.updateRecentsOnHide) {
+          setTimeout(() => this.emojiArea.updateRecents());
+        }
       },
       this.options.showAnimation ? 170 : 0
     );
