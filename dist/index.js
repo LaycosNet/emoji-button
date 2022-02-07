@@ -3816,7 +3816,7 @@ class Emoji {
             pressTimer = setTimeout(() => {
                 this.onLongPress();
                 didLongPress = true;
-            }, 1000);
+            }, 400);
         });
         this.emojiButton.addEventListener('mouseup', () => {
             clearTimeout(pressTimer);
