@@ -56,6 +56,7 @@ export interface EmojiButtonOptions {
   showSearch?: boolean;
   showRecents?: boolean;
   showVariants?: boolean;
+  showVariantsOnClick?: boolean; // default when 'longpress'
   updateRecentsOnHide?: boolean;
   showCategoryButtons?: boolean;
   recentsCount?: number;

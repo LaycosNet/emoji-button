@@ -106,10 +106,12 @@ export class Emoji {
   }
 
   onLongPress(): void {
-    this.events.emit(SHOW_VARIANTS, {
-      emoji: this.emoji,
-      button: this.emojiButton
-    });
+    if (this.options.showVariants && !this.options.showVariantsOnClick) {
+      this.events.emit(SHOW_VARIANTS, {
+        emoji: this.emoji,
+        button: this.emojiButton
+      });
+    }
   }
 
   onEmojiHover(): void {

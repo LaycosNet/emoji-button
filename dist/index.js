@@ -3852,10 +3852,12 @@ class Emoji {
         });
     }
     onLongPress() {
-        this.events.emit(SHOW_VARIANTS, {
-            emoji: this.emoji,
-            button: this.emojiButton
-        });
+        if (this.options.showVariants && !this.options.showVariantsOnClick) {
+            this.events.emit(SHOW_VARIANTS, {
+                emoji: this.emoji,
+                button: this.emojiButton
+            });
+        }
     }
     onEmojiHover() {
         if (this.showPreview) {
@@ -5052,6 +5054,7 @@ const DEFAULT_OPTIONS = {
     showSearch: true,
     showRecents: true,
     showVariants: true,
+    showVariantsOnClick: false,
     showCategoryButtons: true,
     recentsCount: 50,
     updateRecentsOnHide: true,
@@ -5179,7 +5182,8 @@ class EmojiButton {
         return __awaiter(this, void 0, void 0, function* () {
             if (emoji.variations &&
                 showVariants &&
-                this.options.showVariants) {
+                this.options.showVariants &&
+                this.options.showVariantsOnClick) {
                 this.showVariantPopup(emoji);
             }
             else {

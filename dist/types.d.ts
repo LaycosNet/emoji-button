@@ -49,6 +49,7 @@ export interface EmojiButtonOptions {
     showSearch?: boolean;
     showRecents?: boolean;
     showVariants?: boolean;
+    showVariantsOnClick?: boolean;
     updateRecentsOnHide?: boolean;
     showCategoryButtons?: boolean;
     recentsCount?: number;

@@ -63,6 +63,7 @@ const DEFAULT_OPTIONS: EmojiButtonOptions = {
   showSearch: true,
   showRecents: true,
   showVariants: true,
+  showVariantsOnClick: false,
   showCategoryButtons: true,
   recentsCount: 50,
   updateRecentsOnHide: true,
@@ -256,7 +257,8 @@ export class EmojiButton {
     if (
       (emoji as EmojiRecord).variations &&
       showVariants &&
-      this.options.showVariants
+      this.options.showVariants &&
+      this.options.showVariantsOnClick
     ) {
       this.showVariantPopup(emoji as EmojiRecord);
     } else {
