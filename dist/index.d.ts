@@ -63,6 +63,9 @@ export declare class EmojiButton {
      */
     private emitEmoji;
     /**
+     */
+    private showVariants;
+    /**
      * Emits a native emoji record.
      * @param emoji The selected emoji
      */

@@ -11,6 +11,7 @@ export declare class Emoji {
     constructor(emoji: EmojiRecord, showVariants: boolean, showPreview: boolean, events: Emitter, options: EmojiButtonOptions, lazy?: boolean);
     render(): HTMLElement;
     onEmojiClick(): void;
+    onLongPress(): void;
     onEmojiHover(): void;
     onEmojiLeave(): void;
 }

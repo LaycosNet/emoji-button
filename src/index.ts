@@ -9,6 +9,7 @@ import emojiData from './data/emoji';
 
 import {
   EMOJI,
+  SHOW_VARIANTS,
   SHOW_SEARCH_RESULTS,
   HIDE_SEARCH_RESULTS,
   HIDE_VARIANT_POPUP,
@@ -281,6 +282,16 @@ export class EmojiButton {
   }
 
   /**
+   */
+  private async showVariants({
+    emoji,
+  }: {
+    emoji: EmojiRecord;
+  }): Promise<void> {   
+    this.showVariantPopup(emoji as EmojiRecord);
+  }
+
+  /**
    * Emits a native emoji record.
    * @param emoji The selected emoji
    */
@@ -416,6 +427,7 @@ export class EmojiButton {
     this.events.on(SHOW_SEARCH_RESULTS, this.showSearchResults.bind(this));
     this.events.on(HIDE_SEARCH_RESULTS, this.hideSearchResults.bind(this));
     this.events.on(EMOJI, this.emitEmoji.bind(this));
+    this.events.on(SHOW_VARIANTS, this.showVariants.bind(this));
     this.events.on(KEYUP, this.emitKeyUp.bind(this));
     this.events.on(KEYDOWN, this.emitKeyDown.bind(this));
 

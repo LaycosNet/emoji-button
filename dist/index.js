@@ -2403,6 +2403,7 @@ const EMOJI = 'emoji';
 const SHOW_SEARCH_RESULTS = 'showSearchResults';
 const HIDE_SEARCH_RESULTS = 'hideSearchResults';
 const SHOW_PREVIEW = 'showPreview';
+const SHOW_VARIANTS = 'showPreview';
 const HIDE_PREVIEW = 'hidePreview';
 const HIDE_VARIANT_POPUP = 'hideVariantPopup';
 const CATEGORY_CLICKED = 'categoryClicked';
@@ -3807,9 +3808,30 @@ class Emoji {
         this.emojiButton.title = this.emoji.title || this.emoji.name;
         this.emojiButton.addEventListener('focus', () => this.onEmojiHover());
         this.emojiButton.addEventListener('blur', () => this.onEmojiLeave());
-        this.emojiButton.addEventListener('click', () => this.onEmojiClick());
         this.emojiButton.addEventListener('mouseover', () => this.onEmojiHover());
         this.emojiButton.addEventListener('mouseout', () => this.onEmojiLeave());
+        let pressTimer;
+        let didLongPress = false;
+        this.emojiButton.addEventListener('mousedown', () => {
+            pressTimer = setTimeout(() => {
+                this.onLongPress();
+                didLongPress = true;
+            }, 1000);
+        });
+        this.emojiButton.addEventListener('mouseup', () => {
+            clearTimeout(pressTimer);
+        });
+        this.emojiButton.addEventListener('click', () => {
+            let prevent = false;
+            if (didLongPress) {
+                prevent = true;
+            }
+            else {
+                this.onEmojiClick();
+            }
+            didLongPress = false;
+            return prevent;
+        });
         if (this.options.style === 'twemoji' && this.lazy) {
             this.emojiButton.style.opacity = '0.25';
         }
@@ -3826,6 +3848,12 @@ class Emoji {
         this.events.emit(EMOJI, {
             emoji: this.emoji,
             showVariants: this.showVariants,
+            button: this.emojiButton
+        });
+    }
+    onLongPress() {
+        this.events.emit(SHOW_VARIANTS, {
+            emoji: this.emoji,
             button: this.emojiButton
         });
     }
@@ -5176,6 +5204,13 @@ class EmojiButton {
         });
     }
     /**
+     */
+    showVariants({ emoji, }) {
+        return __awaiter(this, void 0, void 0, function* () {
+            this.showVariantPopup(emoji);
+        });
+    }
+    /**
      * Emits a native emoji record.
      * @param emoji The selected emoji
      */
@@ -5274,6 +5309,7 @@ class EmojiButton {
         this.events.on(SHOW_SEARCH_RESULTS, this.showSearchResults.bind(this));
         this.events.on(HIDE_SEARCH_RESULTS, this.hideSearchResults.bind(this));
         this.events.on(EMOJI, this.emitEmoji.bind(this));
+        this.events.on(SHOW_VARIANTS, this.showVariants.bind(this));
         this.events.on(KEYUP, this.emitKeyUp.bind(this));
         this.events.on(KEYDOWN, this.emitKeyDown.bind(this));
         this.buildPreview();

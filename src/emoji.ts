@@ -2,7 +2,7 @@ import { TinyEmitter as Emitter } from 'tiny-emitter';
 import escape from 'escape-html';
 import twemoji from 'twemoji';
 
-import { EMOJI, HIDE_PREVIEW, SHOW_PREVIEW } from './events';
+import { EMOJI, HIDE_PREVIEW, SHOW_PREVIEW, SHOW_VARIANTS } from './events';
 import { smile } from './icons';
 import { save } from './recent';
 import { createElement } from './util';
@@ -51,9 +51,34 @@ export class Emoji {
 
     this.emojiButton.addEventListener('focus', () => this.onEmojiHover());
     this.emojiButton.addEventListener('blur', () => this.onEmojiLeave());
-    this.emojiButton.addEventListener('click', () => this.onEmojiClick());
     this.emojiButton.addEventListener('mouseover', () => this.onEmojiHover());
     this.emojiButton.addEventListener('mouseout', () => this.onEmojiLeave());
+
+    let pressTimer;
+    let didLongPress = false;
+    this.emojiButton.addEventListener('mousedown', () => {
+      pressTimer = setTimeout(() => {
+        this.onLongPress();
+        didLongPress = true;
+      }, 1000);
+    });
+
+    this.emojiButton.addEventListener('mouseup', () => {
+      clearTimeout(pressTimer);
+    });
+
+    this.emojiButton.addEventListener('click', () => {
+      let prevent = false;
+      if (didLongPress) {
+        prevent = true;
+      }
+      else {
+        this.onEmojiClick();
+      }
+      didLongPress = false;
+      return prevent;
+    });
+
 
     if (this.options.style === 'twemoji' && this.lazy) {
       this.emojiButton.style.opacity = '0.25';
@@ -76,6 +101,13 @@ export class Emoji {
     this.events.emit(EMOJI, {
       emoji: this.emoji,
       showVariants: this.showVariants,
+      button: this.emojiButton
+    });
+  }
+
+  onLongPress(): void {
+    this.events.emit(SHOW_VARIANTS, {
+      emoji: this.emoji,
       button: this.emojiButton
     });
   }
